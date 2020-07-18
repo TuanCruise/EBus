@@ -17,30 +17,30 @@
         #endregion
 
         #region LIST MODULE
-        public const string LIST_STATIC_MODULE = "SYSTEM_PROCS.SP_DEFMOD_SEL_STATIC";
-        public const string LIST_BATCH_MODULE = "SYSTEM_PROCS.SP_DEFMOD_SEL_BATCH";
-        public const string LIST_MAINTAIN_MODULE = "SYSTEM_PROCS.SP_MODMAINTAIN_SEL_ALL";
-        public const string LIST_CHART_MODULE = "SYSTEM_PROCS.SP_MODCHART_SEL_ALL";
-        public const string LIST_SEARCHMASTER_MODULE = "SYSTEM_PROCS.SP_MODSEARCH_SEL_ALL";
-        public const string LIST_SWITCH_MODULE = "SYSTEM_PROCS.SP_MODSWITCH_SEL_ALL";
-        public const string LIST_IMPORT_MODULE = "SYSTEM_PROCS.SP_MODIMPORT_SEL_ALL";
-        public const string LIST_EXECUTEPROC_MODULE = "SYSTEM_PROCS.SP_MODEXECPROC_SEL_ALL";
-        public const string LIST_ALERT_MODULE = "SYSTEM_PROCS.SP_MODALERT_SEL_ALL";
-        public const string LIST_STATISTICS_MODULE = "SYSTEM_PROCS.SP_MODSTATISTICS_SEL_ALL";
-        public const string LIST_REPORT_MODULE = "SYSTEM_PROCS.SP_MODREPORT_SEL_ALL";
-        public const string LIST_TREE_MODULE = "SYSTEM_PROCS.SP_MODTREE_SEL_ALL";
-        public const string LIST_EXP_MODULE = "SYSTEM_PROCS.SP_MODEXP_SEL_ALL";
-        public const string LIST_WORKFLOW_MODULE = "SYSTEM_PROCS.SP_DEFMOD_SEL_WORKFLOW";
-        public const string LIST_DASHBOARD_MODULE = "SYSTEM_PROCS.SP_MODDASHBOARD_SEL_ALL";
+        public const string LIST_STATIC_MODULE = "SYSTEM_PROCS_SP_DEFMOD_SEL_STATIC";
+        public const string LIST_BATCH_MODULE = "SYSTEM_PROCS_SP_DEFMOD_SEL_BATCH";
+        public const string LIST_MAINTAIN_MODULE = "SYSTEM_PROCS_SP_MODMAINTAIN_SEL_ALL";
+        public const string LIST_CHART_MODULE = "SYSTEM_PROCS_SP_MODCHART_SEL_ALL";
+        public const string LIST_SEARCHMASTER_MODULE = "SYSTEM_PROCS_SP_MODSEARCH_SEL_ALL";
+        public const string LIST_SWITCH_MODULE = "SYSTEM_PROCS_SP_MODSWITCH_SEL_ALL";
+        public const string LIST_IMPORT_MODULE = "SYSTEM_PROCS_SP_MODIMPORT_SEL_ALL";
+        public const string LIST_EXECUTEPROC_MODULE = "SYSTEM_PROCS_SP_MODEXECPROC_SEL_ALL";
+        public const string LIST_ALERT_MODULE = "SYSTEM_PROCS_SP_MODALERT_SEL_ALL";
+        public const string LIST_STATISTICS_MODULE = "SYSTEM_PROCS_SP_MODSTATISTICS_SEL_ALL";
+        public const string LIST_REPORT_MODULE = "SYSTEM_PROCS_SP_MODREPORT_SEL_ALL";
+        public const string LIST_TREE_MODULE = "SYSTEM_PROCS_SP_MODTREE_SEL_ALL";
+        public const string LIST_EXP_MODULE = "SYSTEM_PROCS_SP_MODEXP_SEL_ALL";
+        public const string LIST_WORKFLOW_MODULE = "SYSTEM_PROCS_SP_DEFMOD_SEL_WORKFLOW";
+        public const string LIST_DASHBOARD_MODULE = "SYSTEM_PROCS_SP_MODDASHBOARD_SEL_ALL";
         #endregion
 
         #region LIST MODULE DETAILS
-        public const string LIST_FIELD_INFO = "SYSTEM_PROCS.SP_DEFMODFLD_SEL_ALL";
-        public const string LIST_BUTTON = "SYSTEM_PROCS.SP_DEFMODBTN_SEL_ALL";
-        public const string LIST_BUTTON_PARAM = "SYSTEM_PROCS.SP_DEFMODBTNPARAM_SEL_ALL";
-        public const string LIST_BATCHINFO_BY_NAME = "SYSTEM_PROCS.SP_MODBATCH_SEL_BY_BATCHNAME";
-        public const string LIST_BATCH_INFO = "SYSTEM_PROCS.SP_MODBATCH_SEL_BY_MODID";
-        public const string LIST_STOREPROC = "SYSTEM_PROCS.SP_STOREPROC_SEL_ALL";
+        public const string LIST_FIELD_INFO = "SYSTEM_PROCS_SP_DEFMODFLD_SEL_ALL";
+        public const string LIST_BUTTON = "SYSTEM_PROCS_SP_DEFMODBTN_SEL_ALL";
+        public const string LIST_BUTTON_PARAM = "SYSTEM_PROCS_SP_DEFMODBTNPARAM_SEL_ALL";
+        public const string LIST_BATCHINFO_BY_NAME = "SYSTEM_PROCS_SP_MODBATCH_SEL_BY_BATCHNAME";
+        public const string LIST_BATCH_INFO = "SYSTEM_PROCS_SP_MODBATCH_SEL_BY_MODID";
+        public const string LIST_STOREPROC = "SYSTEM_PROCS_SP_STOREPROC_SEL_ALL";
         #endregion
 
         #region TRANSATION

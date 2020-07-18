@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\Core.DataAccess.csproj" />
     <ProjectReference Include="..\WebCore.Common\WebCore.Common.csproj" />
     <ProjectReference Include="..\WebCore.Entities\WebCore.Entities.csproj" />
   </ItemGroup>

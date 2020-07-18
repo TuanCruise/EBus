@@ -19,9 +19,11 @@ namespace Bus.Publish
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMassTransit(x => {
+            services.AddMassTransit(x =>
+            {
                 x.SetKebabCaseEndpointNameFormatter();
-                x.UsingRabbitMq((context, cfg) => {
+                x.UsingRabbitMq((context, cfg) =>
+                {
                     cfg.Host("rabbitmq://localhost");
                     //cfg.ConfigureEndpoints(context);
                 });
@@ -30,6 +32,7 @@ namespace Bus.Publish
             services.AddMassTransitHostedService();
 
             services.AddControllers();
+            //services.AddScoped<ICoreService, CoreService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +49,8 @@ namespace Bus.Publish
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
             });
         }

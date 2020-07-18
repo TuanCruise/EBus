@@ -1,19 +1,16 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace EBus.Publish.Controllers
 {
     public class BaseController : ControllerBase
     {
-        public readonly ILogger<BaseController> _logger;
+        protected IConfiguration Configuration;
+        public string ConnectionString { get { return Configuration["ConfigApp:DbContext"]; } }
 
-        public readonly IServiceProvider _serviceProvider;
-
-        public BaseController(ILogger<BaseController> logger, IServiceProvider serviceProvider)
+        public BaseController(IConfiguration configuration)
         {
-            _logger = logger;
-            _serviceProvider = serviceProvider;
+            Configuration = configuration;
         }
 
     }

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
@@ -502,7 +502,8 @@ namespace Core.DataAccess
                 {
                     var comm = new SqlCommand(commandText, conn) { CommandType = CommandType.StoredProcedure };
                     DiscoveryParameters(comm);
-                    parrs.AddRange(from SqlParameter param in comm.Parameters where param.Direction == ParameterDirection.Input
+                    parrs.AddRange(from SqlParameter param in comm.Parameters
+                                   where param.Direction == ParameterDirection.Input
                                    select new SqlParameter
                                    {
                                        //StoreName = commandText,
