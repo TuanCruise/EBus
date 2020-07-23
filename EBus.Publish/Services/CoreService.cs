@@ -1,4 +1,4 @@
-﻿namespace EBus.Publish.Services
+﻿namespace EBus.Core.Services
 {
     public interface ICoreService
     {

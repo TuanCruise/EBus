@@ -1,22 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WebCore.Common;
 
-namespace EBus.Publish.Controllers
+namespace EBus.Core.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ModuleController : BaseController
     {
         private IConfiguration _configuration;
+        private IBusControl _bus;
+        private string _transID;
 
-        public ModuleController(IConfiguration configuration) : base(configuration)
+        public ModuleController(IConfiguration configuration, IBusControl bus) : base(configuration)
         {
             _configuration = configuration;
-
+            _bus = bus;
+            _transID = Guid.NewGuid().ToString();
         }
         [HttpGet]
         [Route("GetAllModule")]
@@ -27,6 +32,30 @@ namespace EBus.Publish.Controllers
                 InitializeModulesInfo();
                 var data = JsonConvert.SerializeObject(AllCaches.ModulesInfo);
                 return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        [HttpGet("{moduleID}")]
+        [Route("GetModule")]
+        public async Task<ActionResult> GetModule(string moduleID)
+        {
+            try
+            {
+                InitializeModulesInfo();
+
+                var moduleInfo = (from module in AllCaches.ModulesInfo
+                                  where module.ModuleID == moduleID && module.SubModule == "MMN"
+                                  select module).SingleOrDefault();
+
+                Uri uri = new Uri("rabbitmq://localhost/moduleinfo");
+                var endPoint = await _bus.GetSendEndpoint(uri);
+                await endPoint.Send(moduleInfo);
+
+                return Ok("success");
             }
             catch (Exception ex)
             {

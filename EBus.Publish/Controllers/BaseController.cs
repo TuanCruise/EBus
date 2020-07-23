@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace EBus.Publish.Controllers
+namespace EBus.Core.Controllers
 {
     public class BaseController : ControllerBase
     {

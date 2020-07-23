@@ -8,7 +8,7 @@ using WebCore.Common;
 using WebCore.Entities;
 using WebCore.Utils;
 
-namespace EBus.Publish.Controllers
+namespace EBus.Core.Controllers
 {
     public class CoreController : BaseController
     {
@@ -99,6 +99,7 @@ namespace EBus.Publish.Controllers
                 //moduleInfos.AddRange(SQLHelper.ExecuteStoreProcedure<MaintainModuleInfo>(ConnectionString, SYSTEM_STORE_PROCEDURES.LIST_MAINTAIN_MODULE).ToArray());
                 //moduleInfos.AddRange(SQLHelper.ExecuteStoreProcedure<ChartModuleInfo>(ConnectionString, SYSTEM_STORE_PROCEDURES.LIST_CHART_MODULE).ToArray());
                 moduleInfos.AddRange(SQLHelper.ExecuteStoreProcedure<SearchModuleInfo>(ConnectionString, SYSTEM_STORE_PROCEDURES.LIST_SEARCHMASTER_MODULE).ToArray());
+                moduleInfos.AddRange(SQLHelper.ExecuteStoreProcedure<ModESBInfo>(ConnectionString, SYSTEM_STORE_PROCEDURES.LIST_MODESB_MODULE).ToArray());
                 //moduleInfos.AddRange(SQLHelper.ExecuteStoreProcedure<SwitchModuleInfo>(ConnectionString, SYSTEM_STORE_PROCEDURES.LIST_SWITCH_MODULE).ToArray());
                 //moduleInfos.AddRange(SQLHelper.ExecuteStoreProcedure<ImportModuleInfo>(ConnectionString, SYSTEM_STORE_PROCEDURES.LIST_IMPORT_MODULE).ToArray());
                 //moduleInfos.AddRange(SQLHelper.ExecuteStoreProcedure<ExecProcModuleInfo>(ConnectionString, SYSTEM_STORE_PROCEDURES.LIST_EXECUTEPROC_MODULE).ToArray());

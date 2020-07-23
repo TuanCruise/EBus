@@ -1,0 +1,21 @@
+﻿using MassTransit;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using WebCore.Entities;
+
+namespace Core.Business.Consumer
+{
+    public class ModuleConsumer : IConsumer<ModuleInfo>
+    {
+        ILogger<ModuleConsumer> _logger;
+        public ModuleConsumer(ILogger<ModuleConsumer> logger)
+        {
+            _logger = logger;
+        }
+
+        public async Task Consume(ConsumeContext<ModuleInfo> context)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+}

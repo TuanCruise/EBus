@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EBus.Publish.Controllers
+namespace EBus.Core.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

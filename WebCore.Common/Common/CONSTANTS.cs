@@ -32,6 +32,7 @@
         public const string LIST_EXP_MODULE = "SYSTEM_PROCS_SP_MODEXP_SEL_ALL";
         public const string LIST_WORKFLOW_MODULE = "SYSTEM_PROCS_SP_DEFMOD_SEL_WORKFLOW";
         public const string LIST_DASHBOARD_MODULE = "SYSTEM_PROCS_SP_MODDASHBOARD_SEL_ALL";
+        public const string LIST_MODESB_MODULE = "SYSTEM_PROCS_SP_MODESB_SEL_ALL";
         #endregion
 
         #region LIST MODULE DETAILS

@@ -13,6 +13,7 @@ namespace WebCore.Entities
         KnownType(typeof(AlertModuleInfo)),
         KnownType(typeof(StatisticsModuleInfo)),
         KnownType(typeof(ChartModuleInfo)),
+        KnownType(typeof(ModESBInfo)),
         KnownType(typeof(DashboardInfo))]
     public class ModuleInfo
     {

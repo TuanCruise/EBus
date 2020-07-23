@@ -1,4 +1,4 @@
-using EBus.Event.Controllers;
+using Core.Business.Consumer;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,12 +21,15 @@ namespace EBus.Event
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddMassTransit(x => {
+            services.AddMassTransit(x =>
+            {
                 x.AddConsumersFromNamespaceContaining<OrderConsumer>();
 
-                x.UsingRabbitMq((context, cfg) => {
+                x.UsingRabbitMq((context, cfg) =>
+                {
                     cfg.ConfigureEndpoints(context);
-                    cfg.ReceiveEndpoint("order_queue", e => {
+                    cfg.ReceiveEndpoint("order_queue", e =>
+                    {
                         e.ConfigureConsumer<OrderConsumer>(context);
                     });
                 });
@@ -48,7 +51,8 @@ namespace EBus.Event
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
             });
         }

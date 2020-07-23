@@ -1,11 +1,11 @@
-﻿using System;
+﻿using MassTransit;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using MassTransit;
-using Microsoft.Extensions.Logging;
 using WebCore.Entities.Entities;
 
-namespace EBus.Event.Controllers
+namespace Core.Business.Consumer
 {
     public class OrderConsumer : IConsumer<Orders>
     {
@@ -55,10 +55,11 @@ namespace EBus.Event.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsStringAsync();
+                        return result;
                     }
                     else
                     {
-
+                        return null;
                     }
                 }
 
@@ -101,7 +102,7 @@ namespace EBus.Event.Controllers
                 //    }
                 //    while (true);
                 //}
-                return null;
+
 
             }
             catch (Exception exception)
