@@ -6,6 +6,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebCore.Common;
+using WebCore.Entities;
+using WebCore.Entities.Entities;
 
 namespace EBus.Core.Controllers
 {
@@ -16,12 +18,15 @@ namespace EBus.Core.Controllers
         private IConfiguration _configuration;
         private IBusControl _bus;
         private string _transID;
+        readonly IRequestClient<SubmitOrder> _requestClient;
+        readonly IPublishEndpoint _publishEndpoint;
 
-        public ModuleController(IConfiguration configuration, IBusControl bus) : base(configuration)
+        public ModuleController(IConfiguration configuration, IBusControl bus, IPublishEndpoint publishEndpoin) : base(configuration)
         {
             _configuration = configuration;
             _bus = bus;
             _transID = Guid.NewGuid().ToString();
+            _publishEndpoint = publishEndpoin;
         }
         [HttpGet]
         [Route("GetAllModule")]
@@ -71,6 +76,18 @@ namespace EBus.Core.Controllers
             AllCaches.ModuleFieldsInfo = m_Client.BuildModuleFieldsInfo();
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> Post(string id, string customerNumber)
+        {
+            var message = new ModuleInfo();
+            message.ModuleID = "03001";
+            message.ModuleName = "Le Minh Tuan";
+
+            await _publishEndpoint.Publish<ModuleInfo>(message);
+
+            return Ok();
+        }
 
     }
 }

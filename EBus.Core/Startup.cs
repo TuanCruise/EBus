@@ -1,3 +1,4 @@
+using Core.Business.Consumer;
 using MassTransit;
 using MassTransit.Definition;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,7 @@ namespace Bus.Core
             services.AddMassTransit(x =>
             {
                 x.SetKebabCaseEndpointNameFormatter();
+                x.AddConsumer<ModuleConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host(new Uri("rabbitmq://localhost/"), h =>
@@ -36,9 +38,13 @@ namespace Bus.Core
                         h.Password("guest");
                     }); ;
                     //cfg.ConfigureEndpoints(context);
+                    cfg.ReceiveEndpoint("module-service", e =>
+                    {
+                        e.Consumer<ModuleConsumer>(context);
+                    });
                 });
 
-                //x.AddRequestClient<SubmitOrder>(new Uri($"queue:{KebabCaseEndpointNameFormatter.Instance.Consumer<SubmitOrderConsumer>()}"));
+                //x.AddRequestClient<SubmitOrder>(new Uri($"queue:{KebabCaseEndpointNameFormatter.Instance.Consumer<OrderConsumer>()}"));
 
                 x.AddRequestClient<CheckOrder>();
             });

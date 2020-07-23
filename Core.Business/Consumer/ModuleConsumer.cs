@@ -15,7 +15,7 @@ namespace Core.Business.Consumer
 
         public async Task Consume(ConsumeContext<ModuleInfo> context)
         {
-            throw new System.NotImplementedException();
+            _logger.LogInformation("Value: {Value}", context.Message.ModuleID);
         }
     }
 }
