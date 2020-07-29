@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -46,26 +48,33 @@ namespace EBus.Core.Controllers
             }
         }
 
-        [HttpGet("{moduleID}")]
+        [HttpGet]
         [Route("GetModule")]
-        public async Task<ActionResult> GetModule(string moduleID)
+        public async Task<ActionResult> GetModule(string moduleID, string subModId, string valuesparam)
         {
             try
             {
+                string json = string.Format("[{0}]", valuesparam);
+                JArray test = JArray.Parse(json);
+
                 InitializeModulesInfo();
 
                 var moduleInfo = (from module in AllCaches.ModulesInfo
-                                  where module.ModuleID == moduleID && module.SubModule == "MMN"
+                                  where module.ModuleID == moduleID && module.SubModule == subModId
                                   select module).SingleOrDefault();
 
+                var fielInfo = (from field in AllCaches.ModuleFieldsInfo
+                                where field.ModuleID == moduleID && field.FieldGroup == WebCore.CODES.DEFMODFLD.FLDGROUP.PARAMETER
+                                select field).ToList();
 
-                var result = await CallServiceDirect(moduleInfo);
-
-                //var message = new ModuleInfo();
-                //message.ModuleID = "03001";
-                //message.ModuleName = "Le Minh Tuan";
-
-                //var response = await _requestClient.GetResponse<ModuleInfo>(message);
+                List<string> values = new List<string>();
+                for (int i = 0; i < test.Count; i++)
+                {
+                    values.Add(test[i].ToString());
+                }
+                //values.Add("812807addffceaa08a8fc97dddd63413"); // add keys
+                //values.Add("AAPL"); // add symbol
+                var result = await CallServiceDirect(moduleInfo, values);
 
                 return Ok(result);
             }
@@ -96,15 +105,21 @@ namespace EBus.Core.Controllers
             return Ok();
         }
 
-        private async Task<IActionResult> CallServiceDirect(ModuleInfo moduleInfo)
+        private async Task<IActionResult> CallServiceDirect(ModuleInfo moduleInfo, List<string> values)
         {
-            HttpResponseMessage response = await client.GetAsync("https://dog.ceo/api/breeds/image/random?");
+            var modEsb = (ModESBInfo)moduleInfo;
+
+            HttpResponseMessage response = await client.GetAsync(ProcessUrl(modEsb.BaseURL, values));
             string result = string.Empty;
             if (response.IsSuccessStatusCode)
             {
                 result = await response.Content.ReadAsStringAsync();
             }
             return Ok(result);
+        }
+        private string ProcessUrl(string baseUrl, List<string> values)
+        {
+            return String.Format(baseUrl, values.ToArray()); ;
         }
 
     }
