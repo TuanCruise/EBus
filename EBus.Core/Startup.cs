@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
-using WebCore.Entities.Entities;
+using WebCore.Entities;
 
 namespace Bus.Core
 {
@@ -29,7 +29,7 @@ namespace Bus.Core
             services.AddMassTransit(x =>
             {
                 x.SetKebabCaseEndpointNameFormatter();
-                x.AddConsumer<ModuleConsumer>();
+                x.AddConsumer<ModueleRequestConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host(new Uri("rabbitmq://localhost/"), h =>
@@ -40,13 +40,13 @@ namespace Bus.Core
                     //cfg.ConfigureEndpoints(context);
                     cfg.ReceiveEndpoint("module-service", e =>
                     {
-                        e.Consumer<ModuleConsumer>(context);
+                        e.Consumer<ModueleRequestConsumer>(context);
                     });
                 });
 
                 //x.AddRequestClient<SubmitOrder>(new Uri($"queue:{KebabCaseEndpointNameFormatter.Instance.Consumer<OrderConsumer>()}"));
 
-                x.AddRequestClient<CheckOrder>();
+                x.AddRequestClient<ModuleInfo>();
             });
 
             services.AddMassTransitHostedService();

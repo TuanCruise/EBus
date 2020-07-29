@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using WebCore.Common;
 using WebCore.Entities;
@@ -18,8 +19,9 @@ namespace EBus.Core.Controllers
         private IConfiguration _configuration;
         private IBusControl _bus;
         private string _transID;
-        readonly IRequestClient<SubmitOrder> _requestClient;
+        readonly IRequestClient<OrderStatusResult> _requestClient;
         readonly IPublishEndpoint _publishEndpoint;
+        static HttpClient client = new HttpClient();
 
         public ModuleController(IConfiguration configuration, IBusControl bus, IPublishEndpoint publishEndpoin) : base(configuration)
         {
@@ -56,11 +58,16 @@ namespace EBus.Core.Controllers
                                   where module.ModuleID == moduleID && module.SubModule == "MMN"
                                   select module).SingleOrDefault();
 
-                Uri uri = new Uri("rabbitmq://localhost/moduleinfo");
-                var endPoint = await _bus.GetSendEndpoint(uri);
-                await endPoint.Send(moduleInfo);
 
-                return Ok("success");
+                var result = await CallServiceDirect(moduleInfo);
+
+                //var message = new ModuleInfo();
+                //message.ModuleID = "03001";
+                //message.ModuleName = "Le Minh Tuan";
+
+                //var response = await _requestClient.GetResponse<ModuleInfo>(message);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -87,6 +94,17 @@ namespace EBus.Core.Controllers
             await _publishEndpoint.Publish<ModuleInfo>(message);
 
             return Ok();
+        }
+
+        private async Task<IActionResult> CallServiceDirect(ModuleInfo moduleInfo)
+        {
+            HttpResponseMessage response = await client.GetAsync("https://dog.ceo/api/breeds/image/random?");
+            string result = string.Empty;
+            if (response.IsSuccessStatusCode)
+            {
+                result = await response.Content.ReadAsStringAsync();
+            }
+            return Ok(result);
         }
 
     }

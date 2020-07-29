@@ -5,10 +5,10 @@ using WebCore.Entities;
 
 namespace Core.Business.Consumer
 {
-    public class ModuleConsumer : IConsumer<ModuleInfo>
+    public class ModueleRequestConsumer : IConsumer<ModuleInfo>
     {
-        ILogger<ModuleConsumer> _logger;
-        public ModuleConsumer(ILogger<ModuleConsumer> logger)
+        ILogger<ModueleRequestConsumer> _logger;
+        public ModueleRequestConsumer(ILogger<ModueleRequestConsumer> logger)
         {
             _logger = logger;
         }
