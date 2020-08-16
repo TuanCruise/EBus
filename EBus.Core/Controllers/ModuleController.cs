@@ -69,15 +69,25 @@ namespace EBus.Core.Controllers
                                 where field.ModuleID == moduleID && field.FieldGroup == WebCore.CODES.DEFMODFLD.FLDGROUP.PARAMETER
                                 select field).ToList();
 
-                var result = await CallServiceDirect(moduleInfo);
+
+                List<string> values = new List<string>();
+                for (int i = 0; i < test.Count; i++)
+                {
+                    values.Add(test[i].ToString());
+                }
+                //values.Add("812807addffceaa08a8fc97dddd63413"); // add keys
+                //values.Add("AAPL"); // add symbol
+                var result = await CallServiceDirect(moduleInfo, values);
+
+                return Ok(result);
 
                 //var message = new ModuleInfo();
                 //message.ModuleID = "03001";
                 //message.ModuleName = "Le Minh Tuan";
 
-                //var response = await _requestClient.GetResponse<ModuleInfo>(message);
+                //var response = await _client.GetResponse<ModuleInfo>(message);
 
-                return Ok(response.Message);
+                //return Ok(response.Message);
             }
             catch (Exception ex)
             {
