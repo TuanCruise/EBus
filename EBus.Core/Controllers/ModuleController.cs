@@ -19,17 +19,19 @@ namespace EBus.Core.Controllers
         private IConfiguration _configuration;
         private IBusControl _bus;
         private string _transID;
-        readonly IRequestClient<OrderStatusResult> _requestClient;
+        readonly IRequestClient<ModuleInfo> _client;
         readonly IPublishEndpoint _publishEndpoint;
         static HttpClient client = new HttpClient();
 
-        public ModuleController(IConfiguration configuration, IBusControl bus, IPublishEndpoint publishEndpoin) : base(configuration)
+        public ModuleController(IConfiguration configuration, IBusControl bus, IPublishEndpoint publishEndpoin, IRequestClient<ModuleInfo> client) : base(configuration)
         {
             _configuration = configuration;
             _bus = bus;
             _transID = Guid.NewGuid().ToString();
             _publishEndpoint = publishEndpoin;
+            _client = client;
         }
+
         [HttpGet]
         [Route("GetAllModule")]
         public async Task<ActionResult> GetAllModule()
@@ -59,15 +61,16 @@ namespace EBus.Core.Controllers
                                   select module).SingleOrDefault();
 
 
-                var result = await CallServiceDirect(moduleInfo);
 
-                //var message = new ModuleInfo();
-                //message.ModuleID = "03001";
-                //message.ModuleName = "Le Minh Tuan";
+                //var result = await CallServiceDirect(moduleInfo);
 
-                //var response = await _requestClient.GetResponse<ModuleInfo>(message);
+                var message = new ModuleInfo();
+                message.ModuleID = "03001";
+                message.ModuleName = "Le Minh Tuan";
 
-                return Ok(result);
+                var response = await _client.GetResponse<ModuleInfo>(message);
+
+                return Ok(response.Message);
             }
             catch (Exception ex)
             {
@@ -92,8 +95,11 @@ namespace EBus.Core.Controllers
             message.ModuleName = "Le Minh Tuan";
 
             await _publishEndpoint.Publish<ModuleInfo>(message);
+           
+            var response = await _client.GetResponse<ModuleInfo>(message);
 
-            return Ok();
+
+            return Ok(response.Message);
         }
 
         private async Task<IActionResult> CallServiceDirect(ModuleInfo moduleInfo)

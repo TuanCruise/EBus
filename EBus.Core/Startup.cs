@@ -29,7 +29,8 @@ namespace Bus.Core
             services.AddMassTransit(x =>
             {
                 x.SetKebabCaseEndpointNameFormatter();
-                x.AddConsumer<ModueleRequestConsumer>();
+                x.AddConsumer<ModuleConsumer>();
+                x.AddConsumer<ModuleRequestConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host(new Uri("rabbitmq://localhost/"), h =>
@@ -40,7 +41,7 @@ namespace Bus.Core
                     //cfg.ConfigureEndpoints(context);
                     cfg.ReceiveEndpoint("module-service", e =>
                     {
-                        e.Consumer<ModueleRequestConsumer>(context);
+                        e.Consumer<ModuleRequestConsumer>(context);
                     });
                 });
 

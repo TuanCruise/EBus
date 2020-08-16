@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using WebCore.Entities;
@@ -8,27 +9,19 @@ namespace Core.Business.Consumer
 {
     public class ModuleRequestConsumer : IConsumer<ModuleInfo>
     {
-        readonly IOrderRepository _orderRepository;
-
-        public ModuleRequestConsumer(IOrderRepository orderRepository)
+        ILogger<ModuleRequestConsumer> _logger;
+        public ModuleRequestConsumer(ILogger<ModuleRequestConsumer> logger)
         {
-            _orderRepository = orderRepository;
+            _logger = logger;
         }
 
         public async Task Consume(ConsumeContext<ModuleInfo> context)
         {
-            //var order = await _orderRepository.Get(context.Message.OrderId);
-            //if (order == null)
-            //    throw new InvalidOperationException("Order not found");
-            //v
-
-            await context.RespondAsync<OrderStatusResult>(new
-            {
-                OrderId = "123",
-                Timestamp = DateTime.Now,
-                StatusCode = "abc",
-                StatusText = "con ga con"
-            });
+            var modresult = new ModuleInfo();
+            modresult.ModuleID = "1234";
+            modresult.SubModule = "MAD";
+            modresult.UIType = "T";
+            await context.RespondAsync<ModuleInfo>(modresult);
         }
     }
 }
